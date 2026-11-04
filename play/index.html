@@ -39,7 +39,7 @@
 
   <div id="rotate">Turn your phone sideways to play.</div>
 
-  <script src="Build/Builds.loader.js"></script>
+  <script src="Build/play.loader.js"></script>
   <script>
     const canvas = document.querySelector("#unity-canvas");
     const loading = document.querySelector("#loading");
@@ -47,9 +47,9 @@
     const percent = document.querySelector("#percent");
 
     createUnityInstance(canvas, {
-      dataUrl: "Build/Builds.data.unityweb",
-      frameworkUrl: "Build/Builds.framework.js.unityweb",
-      codeUrl: "Build/Builds.wasm.unityweb",
+      dataUrl: "Build/play.data.unityweb",
+      frameworkUrl: "Build/play.framework.js.unityweb",
+      codeUrl: "Build/play.wasm.unityweb",
       streamingAssetsUrl: "StreamingAssets",
       companyName: "Shaxzod",
       productName: "Silk Road Caravan",
