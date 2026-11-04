@@ -1,1 +1,180 @@
-<h1>Siege Hold - coming soon</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Silk Road Caravan: guard the caravan, reach the city</title>
+  <meta name="description" content="Silk Road Caravan is a free action game for PC and phone browsers. Escort a trade caravan through deserts and mountain passes and fight off bandit ambushes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --night: #0E1630;      /* desert sky after sunset */
+      --lapis: #23408E;      /* Samarkand tile blue */
+      --tile: #3BB7A8;       /* turquoise glaze */
+      --saffron: #E8A63A;    /* gold of the trade goods */
+      --sand: #E9D3A6;       /* text, dunes in moonlight */
+      --dune: #B98A54;
+      --display: "Marcellus", Georgia, "Times New Roman", serif;
+      --body: "Alegreya Sans", "Segoe UI", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--night); color: var(--sand); font: 400 1.125rem/1.6 var(--body); }
+    a { color: var(--saffron); }
+    a:focus-visible, .play:focus-visible { outline: 3px solid var(--tile); outline-offset: 3px; }
+
+    /* ---------- Hero: night sky over the dunes, with the caravan route ---------- */
+    .hero { position: relative; min-height: 100vh; display: grid; grid-template-rows: 1fr auto; overflow: hidden;
+            background: radial-gradient(120% 80% at 70% 0%, #1B2B5E 0%, var(--night) 60%); }
+    .hero-text { align-self: center; padding: 12vh 6vw 0; max-width: 46rem; }
+    h1 { font: 400 clamp(3rem, 9vw, 6.5rem)/0.95 var(--display); margin: 0 0 1.25rem; letter-spacing: -0.01em; color: #F6E7C4; }
+    .lead { font-size: clamp(1.15rem, 2.2vw, 1.4rem); max-width: 34rem; margin: 0 0 2rem; }
+    .play { display: inline-block; padding: 0.95rem 1.9rem; border-radius: 999px; background: var(--saffron); color: var(--night);
+            font: 700 1.15rem/1 var(--body); text-decoration: none; box-shadow: 0 0 0 6px rgba(232,166,58,.18); }
+    .play:hover { background: #F2B955; }
+    .note { margin-top: 1rem; font-size: 0.95rem; opacity: .75; }
+    .dunes { display: block; width: 100%; height: auto; }
+    .stars { position: absolute; inset: 0; pointer-events: none; }
+    .stars span { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #F6E7C4; opacity: .7; }
+
+    /* ---------- Content ---------- */
+    main { max-width: 64rem; margin: 0 auto; padding: 5rem 6vw 3rem; }
+    h2 { font: 400 clamp(2rem, 4.5vw, 2.8rem)/1.1 var(--display); margin: 0 0 2rem; color: #F6E7C4; }
+    section + section { margin-top: 5rem; }
+
+    /* The journey is a real sequence, so it is drawn as stops along a road */
+    .journey { list-style: none; margin: 0; padding: 0 0 0 2.25rem; border-left: 3px dashed var(--dune); max-width: 40rem; }
+    .journey li { position: relative; padding-bottom: 2.25rem; }
+    .journey li:last-child { padding-bottom: 0; }
+    .journey li::before { content: ""; position: absolute; left: calc(-2.25rem - 10px); top: 0.35rem; width: 17px; height: 17px;
+                          border-radius: 50%; background: var(--night); border: 3px solid var(--tile); }
+    .journey li:last-child::before { background: var(--saffron); border-color: var(--saffron); }
+    .journey h3 { margin: 0 0 0.25rem; font: 700 1.3rem/1.3 var(--body); color: #F6E7C4; }
+    .journey p { margin: 0; }
+
+    .shot { margin: 0; }
+    .shot img { width: 100%; border-radius: 14px; border: 2px solid var(--lapis); display: block; }
+
+    table { width: 100%; max-width: 40rem; border-collapse: collapse; }
+    th, td { text-align: left; padding: 0.7rem 0.75rem 0.7rem 0; border-bottom: 1px solid rgba(233,211,166,.18); vertical-align: top; }
+    th { font-weight: 700; color: #F6E7C4; }
+    kbd { font: 700 0.95rem var(--body); padding: 0.1rem 0.45rem; border-radius: 6px; background: var(--lapis); color: #F6E7C4; }
+
+    footer { max-width: 64rem; margin: 0 auto; padding: 2.5rem 6vw 3rem; border-top: 1px solid rgba(233,211,166,.18);
+             font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; justify-content: space-between; }
+
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="stars" aria-hidden="true"></div>
+
+    <div class="hero-text">
+      <h1>Silk Road Caravan</h1>
+      <p class="lead">Bandits are waiting along the trade road. Your caravan only moves while you stay beside it, so every fight is a choice between pushing on and holding the line.</p>
+      <a class="play" href="play/">Play in your browser</a>
+      <p class="note">Free. Works on PC and on phones held sideways.</p>
+    </div>
+
+    <svg class="dunes" viewBox="0 0 1440 360" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <path d="M0 210 C 220 150, 380 250, 620 200 S 1040 120, 1440 190 L1440 360 L0 360 Z" fill="#2A3360"/>
+      <path d="M0 260 C 260 210, 520 300, 800 250 S 1200 200, 1440 250 L1440 360 L0 360 Z" fill="#7E5C3A"/>
+      <path d="M0 300 C 300 270, 600 340, 900 300 S 1260 280, 1440 300 L1440 360 L0 360 Z" fill="#B98A54"/>
+      <!-- the trade road, ending at a city gate on the right -->
+      <path id="road" d="M -20 318 C 240 300, 420 262, 640 268 S 1020 236, 1300 214" fill="none"
+            stroke="#E9D3A6" stroke-width="3" stroke-dasharray="10 12" opacity=".7"/>
+      <g transform="translate(1300 214)">
+        <rect x="-6" y="-52" width="52" height="52" fill="#23408E"/>
+        <path d="M-6 -52 a26 22 0 0 1 52 0 Z" fill="#3BB7A8"/>
+        <rect x="12" y="-24" width="16" height="24" rx="8" fill="#0E1630"/>
+      </g>
+      <!-- the caravan: travels the road once when the page opens -->
+      <g id="caravan">
+        <rect x="-14" y="-20" width="28" height="14" rx="3" fill="#E8A63A"/>
+        <path d="M-12 -20 q12 -14 24 0 Z" fill="#F6E7C4"/>
+        <circle cx="-8" cy="-4" r="4" fill="#0E1630"/>
+        <circle cx="8" cy="-4" r="4" fill="#0E1630"/>
+        <animateMotion id="travel" dur="9s" begin="indefinite" fill="freeze" rotate="auto" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.3 1">
+          <mpath href="#road"/>
+        </animateMotion>
+      </g>
+    </svg>
+  </header>
+
+  <main>
+    <section aria-labelledby="journey-title">
+      <h2 id="journey-title">How a journey goes</h2>
+      <ol class="journey">
+        <li>
+          <h3>Leave the city</h3>
+          <p>Walk beside the wagon and it rolls along the road. Walk away and it waits for you, alone and unprotected.</p>
+        </li>
+        <li>
+          <h3>Survive the ambushes</h3>
+          <p>Raiders run alongside the wagon to hack at it, blockers stand on the road to stop it, and archers aim from the dunes. A red line shows where each arrow will fly.</p>
+        </li>
+        <li>
+          <h3>Fight with combos and skills</h3>
+          <p>Chain a three-hit sword combo, dash through a line of bandits, or spin to throw back everyone crowding the wagon. Gold from every bandit pays for repairs.</p>
+        </li>
+        <li>
+          <h3>Cross the mountain pass</h3>
+          <p>A red circle on the ground means a boulder is coming. Time your push through the canyon, or lure the bandits under the rocks.</p>
+        </li>
+        <li>
+          <h3>Reach the gate</h3>
+          <p>Bring the caravan home in one piece to win the level.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="look-title">
+      <h2 id="look-title">In the game</h2>
+      <figure class="shot">
+        <img src="screenshot.jpg" alt="The Commander defending the caravan from bandits on the desert road" onerror="this.closest('section').remove()">
+      </figure>
+    </section>
+
+    <section aria-labelledby="controls-title">
+      <h2 id="controls-title">Controls</h2>
+      <table>
+        <thead><tr><th scope="col">Action</th><th scope="col">PC</th><th scope="col">Phone</th></tr></thead>
+        <tbody>
+          <tr><td>Move</td><td><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> or arrow keys</td><td>Joystick, bottom left</td></tr>
+          <tr><td>Sword combo</td><td><kbd>Space</kbd>, press again to chain</td><td>Attack button</td></tr>
+          <tr><td>Dash strike</td><td><kbd>Q</kbd></td><td>Dash button</td></tr>
+          <tr><td>Whirlwind</td><td><kbd>E</kbd></td><td>Spin button</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <span>Silk Road Caravan, made by Shahzod with Unity. Characters by KayKit (CC0).</span>
+    <a href="privacy.html">Privacy policy</a>
+  </footer>
+
+  <script>
+    // A few stars in the sky (decoration only)
+    const sky = document.querySelector(".stars");
+    for (let i = 0; i < 60; i++) {
+      const s = document.createElement("span");
+      s.style.left = Math.random() * 100 + "%";
+      s.style.top = Math.random() * 55 + "%";
+      s.style.opacity = (0.25 + Math.random() * 0.6).toFixed(2);
+      sky.appendChild(s);
+    }
+    // The caravan travels the road once, unless the visitor prefers less motion
+    const travel = document.getElementById("travel");
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && travel.beginElement) {
+      travel.beginElement();
+    } else {
+      document.getElementById("caravan").setAttribute("transform", "translate(1240 222)");
+    }
+  </script>
+</body>
+</html>
